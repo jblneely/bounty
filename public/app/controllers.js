@@ -1,5 +1,14 @@
-angular.module('MyCtrls', ['MyServices'])
+angular.module('BountyCtrls', ['BountyServices'])
     .controller('HomeCtrl', ['$scope', function($scope) {
+
+    }])
+    .controller('UserCtrl', ['$scope', function($scope) {
+
+    }])
+    .controller('AdminCtrl', ['$scope', function($scope) {
+
+    }])
+    .controller('GroupCtrl', ['$scope', function($scope) {
 
     }])
     .controller('NavCtrl', ['$scope', 'Auth', function($scope, Auth) {
@@ -13,11 +22,11 @@ angular.module('MyCtrls', ['MyServices'])
     }])
     .controller('SignupCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
         $scope.user = {
-            email: '',
+            name: '',
             password: ''
         };
         $scope.userSignup = function() {
-            $http.post('/api/users', $scope.user).then(function success(res) {
+            $http.post('/users', $scope.user).then(function success(res) {
                 console.log('successfully created a new user', res);
                 $location.path('/'); //relocate to the home page
             }, function error(res) {
@@ -27,7 +36,7 @@ angular.module('MyCtrls', ['MyServices'])
     }])
     .controller('LoginCtrl', ['$scope', '$timeout', 'Auth', '$http', '$location', 'Alerts', function($scope, $timeout, Auth, $http, $location, Alerts) {
         $scope.user = {
-            email: '',
+            name: '',
             password: ''
         };
         var clearAlerts = function() {
@@ -35,7 +44,7 @@ angular.module('MyCtrls', ['MyServices'])
         };
 
         $scope.userLogin = function() {
-            $http.post('/api/auth', $scope.user).then(function success(res) {
+            $http.post('/auth', $scope.user).then(function success(res) {
                 console.log('response from server when loggin in:', res);
                 Auth.saveToken(res.data.token);
                 Alerts.add('success', 'You are now logged in, congrats.');

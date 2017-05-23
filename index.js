@@ -13,7 +13,7 @@ var app = express();
 // mongoose models and connection
 var mongoose = require('mongoose');
 var User = require('./models/user');
-mongoose.connect('mongodb://localhost/authboilerplate'); //change this DB
+mongoose.connect('mongodb://localhost/bounty'); //change this DB
 
 // decode POST data in JSON and URL encoded formats
 app.use(bodyParser.json());
@@ -22,8 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('morgan')('dev'));
 
 // Replace the above routes with the following
-app.use('/api/users', expressJWT({ secret: secret }).unless({
-    path: [{ url: '/api/users', methods: ['POST'] }]
+app.use('/users', expressJWT({ secret: secret }).unless({
+    path: [{ url: '/users', methods: ['POST'] }]
 }), require('./controllers/users'));
 
 // this middleware will check if expressJWT did not authorize the user, and return a message
@@ -34,7 +34,7 @@ app.use(function(err, req, res, next) {
 });
 
 // POST /api/auth - if authenticated, return a signed JWT
-app.post('/api/auth', function(req, res) {
+app.post('/auth', function(req, res) {
     User.findOne({ email: req.body.email }, function(err, user) {
         // return 401 if error or no user
         if (err || !user) return res.status(401).send({ message: 'User not found' });

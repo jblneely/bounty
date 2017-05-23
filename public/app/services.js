@@ -1,4 +1,4 @@
-angular.module('MyServices', ['ngResource'])
+angular.module('BountyServices', ['ngResource'])
     .factory('Auth', ['$window', function($window) {
         return {
             saveToken: function(token) {
@@ -30,7 +30,7 @@ angular.module('MyServices', ['ngResource'])
                 }
                 return false;
             }
-        }
+        };
     }])
     .factory('AuthInterceptor', ['Auth', function(Auth) {
         return {
@@ -41,7 +41,7 @@ angular.module('MyServices', ['ngResource'])
                 }
                 return config;
             }
-        }
+        };
     }])
     .factory('Alerts', [function() {
         var alerts = [];
@@ -56,5 +56,5 @@ angular.module('MyServices', ['ngResource'])
             clear: function() {
                 alerts = [];
             }
-        }
+        };
     }]);
